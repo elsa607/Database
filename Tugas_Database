@@ -1,0 +1,92 @@
+import 'package:flutter/material.dart';
+void main() => runApp(App());
+
+class App extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter penyimpanan data',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Data Penerima Bantuan Sosial'),
+        ),
+        body: Penerima(),
+      ),
+    );
+  }
+}
+
+class DataPenerima{
+  String nik;
+  String nama;
+  String alamat;
+  String jkelamin;
+
+
+  DataPenerima({this.nik, this.nama, this.alamat, this.jkelamin});
+
+}
+
+// class Pasien
+class Penerima extends StatefulWidget {
+  _MyappState createState() => _MyappState();
+}
+
+class _MyappState extends State<Penerima> {
+  //deklarasi variabel
+  final txtnik = TextEditingController();
+  final txtnama = TextEditingController();
+  final txtjkelamin = TextEditingController();
+  final txtalamat = TextEditingController();
+
+
+  List<Widget> data = [];
+
+  onTambah() {
+    setState(() {
+       data.add(ListTile(leading: Text(txtnik.text)));
+       data.add(ListTile(leading: Text(txtnama.text)));
+       data.add(ListTile(leading: Text(txtjkelamin.text)));
+       data.add(ListTile(leading: Text(txtalamat.text)));      
+      txtnik.clear();
+      txtnama.clear();
+      txtalamat.clear();
+      txtjkelamin.clear();
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+               TextField(
+                controller: txtnik,
+                decoration: InputDecoration(hintText: 'NIK '),
+              ),
+              TextField(
+                controller: txtnama,
+                decoration: InputDecoration(hintText: 'Nama'),
+              ),
+              TextField(
+                controller: txtjkelamin,
+                decoration: InputDecoration(hintText: 'Jenis Kelamin'),
+              ),
+              TextField(
+                controller: txtalamat,
+                decoration: InputDecoration(hintText: 'Alamat'),
+              ),
+              Divider(height: 5.0),
+              ElevatedButton(child: Text("Tambah"), onPressed: onTambah),
+            ],
+          ),
+        ),
+        new Column(
+          children: data,
+        )
+      ],
+    );
+  }
+}
